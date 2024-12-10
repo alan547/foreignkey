@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color:#e8f4fc;">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            </ul>
+        </div>
+    </nav>
+    <section class="vh-100" style="background-color: #f0f7fb;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <h3 class="mb-5">Edit Student</h3>
+                            <form method="post" action="{% url 'editdb' student.id %}">
+                                {% csrf_token %}
+                                <div class="form-outline mb-4">
+                                    <input type="text" placeholder="Enter Name" name="name" class="form-control" value="{{ student.student_name }}" required />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="text" placeholder="Enter Address" name="address" class="form-control" value="{{ student.student_address }}" required />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="number" placeholder="Enter Age" name="age" class="form-control" value="{{ student.student_age }}" required />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <input type="date" placeholder="Joining Date" name="jdate" class="form-control" value="{{ student.joining_date|date:'Y-m-d' }}" required />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <select class="form-control" name="sel" required>
+                                        {% for c in courses %}
+                                            <option value="{{ c.id }}" {% if c.id == student.course.id %} selected {% endif %}>{{ c.course_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <input type="submit" value="Submit" class="btn btn-primary" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
